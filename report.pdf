@@ -1,0 +1,124 @@
+📑 REPORT (Assignment Submission)
+Title Page
+
+Assignment Report
+Course: Data Structures (ENCS205 / ENCA 201)
+Assignment No: 01
+Theme: Foundation of Data Structures
+Title: Weather Data Storage System using 2D Arrays and ADT
+
+Submitted By: Ishan Jha (Roll No: ___, Section: ___)
+Submitted To: Prof. [Name]
+Semester: 3rd, Session: 2025–26
+
+1. Introduction
+
+This project develops a Weather Data Storage System to systematically store and retrieve temperature records based on city and year. The system uses Abstract Data Types (ADT) and 2D arrays for structured storage. It also supports sparse datasets, allowing memory-efficient storage when some records are missing.
+
+2. Weather Record ADT
+Attributes
+
+Date → String (format: dd/mm/yyyy), e.g., "01/06/2025"
+
+City → String, e.g., "Gurgaon"
+
+Temperature → Float/Double, e.g., 34°C
+
+Methods
+
+insert(record): Adds a weather record.
+
+delete(city, date): Removes a record for a city on a given date.
+
+retrieve(city, year): Returns the temperature for the city in that year.
+
+traverse(): Iterates through all stored records.
+
+The ADT ensures modularity and prevents unauthorized manipulation of weather data.
+
+3. Memory Representation Strategy
+3.1 Row-Major Order
+
+Rows → Years (2025, 2026)
+
+Columns → Cities (Gurgaon)
+
+Traversal accesses all cities for a year before moving to the next year.
+
+Example:
+
+[ (2025, 'Gurgaon') ]
+[ (2026, 'Gurgaon') ]
+
+3.2 Column-Major Order
+
+Columns → Cities
+
+Rows → Years
+
+Traversal accesses all years for a city before moving to the next city.
+
+4. Handling Sparse Data
+
+Dense Matrix with Sentinel Values: Missing entries are represented as None.
+
+Sparse Dictionary Representation: Stores only existing records as (year, city) : temperature.
+
+Example Sparse Dictionary:
+
+{ (2025, 'Gurgaon'): 34,
+  (2026, 'Gurgaon'): 31 }
+
+
+This allows memory-efficient storage when many entries are missing.
+
+5. Complexity Analysis
+Operation	Dense (2D Array)	Sparse (Dictionary)
+Insert	O(1)	O(1)
+Delete	O(1)	O(1)
+Retrieve	O(1)	O(1)
+Row Traversal	O(n × m)	O(k)
+Column Traversal	O(n × m)	O(k)
+
+n = number of years (2)
+
+m = number of cities (1)
+
+k = number of filled records
+
+Space Complexity:
+
+Dense → O(n × m)
+
+Sparse → O(k)
+
+6. Sample Execution
+
+Python Code Example:
+
+from weather_ds import WeatherRecord, DataStorage
+
+years = [2025, 2026]
+cities = ["Gurgaon"]
+ds = DataStorage(years, cities, sentinel=None)
+
+r1 = WeatherRecord("01/06/2025", "Gurgaon", 34)
+r2 = WeatherRecord("15/07/2026", "Gurgaon", 31)
+
+ds.insert(r1)
+ds.insert(r2)
+
+print(ds.retrieve("Gurgaon", 2025))
+print(ds.row_major_access())
+print(ds.handle_sparse_data())
+
+
+Output:
+
+34
+[(2025, 'Gurgaon', 34), (2026, 'Gurgaon', 31)]
+{'total': 2, 'filled': 2, 'missing': 0}
+
+7. Conclusion
+
+The system successfully demonstrates the application of ADTs and 2D arrays to store structured weather data. It supports row-major and column-major traversal, handles sparse datasets, and provides predictable time and space complexity for all operations. This fulfills the assignment’s requirements while remaining efficient and memory-friendly.
